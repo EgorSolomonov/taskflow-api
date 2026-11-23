@@ -1,0 +1,10 @@
+# список сервисов приложений
+services:
+  nginx:
+    image: nginx:alpine
+
+  php:
+    image: php:8.4-fpm
+
+  mysql:
+    image: mysql:8.4
