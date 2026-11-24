@@ -2,9 +2,31 @@
 services:
   nginx:
     image: nginx:alpine
+    ports:
+      - "8081:80"
+    networks:
+      - taskflow
 
   php:
     image: php:8.4-fpm
+    networks:
+      - taskflow
 
   mysql:
     image: mysql:8.4
+    networks:
+      - taskflow
+    volumes:
+      - taskflow_mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+volumes:
+  taskflow_mysql_data:
+
+networks:
+  taskflow:
+    driver: bridge
